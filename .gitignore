@@ -1,0 +1,11 @@
+venv/
+.DS_Store
+__pycache__/
+
+# REVA data files are not redistributed - download from DOI 10.26275/rqkx-w7yx
+*.csv
+*.graphml
+*.pdf
+
+# derived cache, regenerate with: python make_animation.py --cache
+graph_nodes.csv
