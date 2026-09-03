@@ -374,19 +374,30 @@ brew install ffmpeg          # or: apt install ffmpeg
    to human anatomy. Upadhye had eight nerves from five cadavers and could report a
    standard deviation; I cannot.
 
-2. **microCT misses small fascicles and measures everything slightly small.**
-   Fascicles in microCT come out roughly 8.5% smaller than the same fascicles in
-   histology, and the smallest are missed entirely (Pelot et al. 2025). Both push the
-   same way: my median diameter of 0.423 mm is an overestimate because the small
-   fascicles that would drag it down are absent, and my count is a floor rather than
-   an estimate.
+2. **microCT under-resolves the smallest fascicles.** Zhang et al. 2025 report that
+   segmentation "showed reduced performance in segmenting tiny fascicles" and that
+   "the insufficient definition of these smallest fascicles appeared to confound both
+   manual annotation and network prediction". So my median diameter of 0.423 mm is an
+   overestimate — the small fascicles that would drag it down are under-represented —
+   and my count of 6 per slice is a floor rather than an estimate.
 
-3. **The nerve boundary is missing on 62% of slices, non-randomly.** Detailed above.
+3. **These are dissected, fixed, stained specimens, not living nerve.** Buyukcelik et
+   al. 2023 note that segmentation is performed on tissue that "inevitably causes
+   volume shrinkage", citing past estimates "on the order of 15–30%". Every absolute
+   size in this repo carries that, and it is far larger than any of the differences I
+   discuss elsewhere.
 
-4. **CL2 is unanalysed.** 151 mm of the same nerve, more than twice CL1, and probably
+   I have not found a published figure quantifying how much microCT fascicle areas
+   differ from matched histology on the same nerve. The papers I checked validate
+   microCT against histology qualitatively rather than numerically, so I do not state
+   a percentage.
+
+4. **The nerve boundary is missing on 62% of slices, non-randomly.** Detailed above.
+
+5. **CL2 is unanalysed.** 151 mm of the same nerve, more than twice CL1, and probably
    the region actually comparable to Upadhye's.
 
-5. **I did not verify the segmentation or the tracking.** Both were done by REVA and
+6. **I did not verify the segmentation or the tracking.** Both were done by REVA and
    consumed as given. Automated tracking is a candidate explanation for my elevated
    event rate, and I have no way to audit it from the released tables.
 
@@ -428,7 +439,14 @@ scripts; both scripts locate their inputs by filename pattern.
 - Upadhye et al. (2022). Fascicles split or merge every ~560 microns within the human
   cervical vagus nerve. *J. Neural Eng.* 19(5).
   [doi:10.1088/1741-2552/ac9643](https://doi.org/10.1088/1741-2552/ac9643)
-- Pelot et al. (2025, preprint). microCT versus histology fascicle size difference;
-  the unknown functional organisation of the human vagus cross-section.
+- Zhang, Lapierre-Landry, Kalpatthi, Jenkins, Wilson, Pelot & Shoffstall (2025).
+  Automated 3D segmentation of human vagus nerve fascicles and epineurium from
+  micro-computed tomography images using anatomy-aware neural networks.
+  *J. Neural Eng.* [doi:10.1088/1741-2552/ae33f6](https://doi.org/10.1088/1741-2552/ae33f6)
+  — source for the reduced segmentation performance on the smallest fascicles.
+- Buyukcelik, Lapierre-Landry, Kolluru, Upadhye, Marshall, Pelot, Ludwig, Gustafson,
+  Wilson, Jenkins & Shoffstall (2023). Deep-learning segmentation of fascicles from
+  microCT of the human vagus nerve. *Front. Neurosci.* 17:1169187
+  — source for the 15-30% tissue shrinkage estimate.
 - REVA dataset, SPARC / Pennsieve.
   [doi:10.26275/rqkx-w7yx](https://doi.org/10.26275/rqkx-w7yx), CC-BY-4.0.
