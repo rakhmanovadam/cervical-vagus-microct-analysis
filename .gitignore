@@ -9,3 +9,6 @@ __pycache__/
 
 # derived cache, regenerate with: python make_animation.py --cache
 graph_nodes.csv
+
+# Graphia / graph-tool session files (derived from the source dataset)
+*.graphia
