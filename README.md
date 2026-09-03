@@ -218,6 +218,25 @@ mandible-to-hyoid gives 3.1. My overall median of 6 sits against Upadhye's 6.6 �
 
 ![fascicle count along the nerve](fig1_fascicle_count.png)
 
+**The maximum count of 35 is not trustworthy, though the median is.** 2.0% of the
+tracked objects are under 50 µm across and the smallest are single pixels, far below
+the size of any real fascicle. The tracking graph shows the same thing from another
+angle: 1,241 nodes (2.6%) carry zeroed ellipse centres and axes, because an ellipse
+cannot be fitted to a 2-pixel object. Their median area is 2 pixels.
+
+Excluding objects under 50 µm leaves the median at 6 and the mean at 8.2, but drops
+the maximum from 35 to 23. So the median is robust to this noise and the extremes are
+not, and any comparison of my range against a published range should use 23 rather
+than 35. Only one of these objects is a branch point, so the event counts below are
+unaffected.
+
+![a window of the tracking graph](fig4_graph_window.png)
+
+Three millimetres of the tracking graph, positioned by the data rather than by a
+generic graph layout: slice number down the vertical axis, real position across the
+horizontal. Each near-vertical thread is one fascicle travelling down the nerve. The
+threads pinned at zero on the left are the zero-coordinate objects described above.
+
 ### The coordinate offset
 
 Recovered and verified to 7×10⁻¹⁵ mm across all 5,538 slices. All five landmarks fall
@@ -424,11 +443,19 @@ public release. So the question is answerable, just not with these files.
 ```
 reva_analysis.py          five analysis stages, heavily commented
 make_animation.py         builds the flythrough video
+plot_graph_window.py      draws a readable window of the tracking graph
 fig1_fascicle_count.png   fascicle count along the nerve, landmarks overlaid
 fig2_diameters.png        fascicle size distribution and nerve caliber
 fig3_events.png           where branching happens along the nerve
+fig4_graph_window.png     3 mm of the tracking graph, splits and merges marked
 fascicle_plexus.mp4       37 s flythrough
 ```
+
+A note on opening the GraphML file directly. Loading all 47,274 nodes into a general
+graph tool produces an uninformative circle, because a generic layout has no reason to
+know that this graph is a few thousand near-parallel chains rather than a network.
+`plot_graph_window.py` positions each node by its own data instead, over a short
+window, which is what makes the splits and merges legible.
 
 Data files are not included. Download them from
 [10.26275/rqkx-w7yx](https://doi.org/10.26275/rqkx-w7yx) and place them alongside the
